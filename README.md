@@ -1,5 +1,5 @@
 # SmartHome
-Project for the course of Autonomous Software Agents - University of Trento
+Project for the course of Autonomous Software Agents - University of Trento - Alberto Casagrande
 
 The implemented code can be found here:
 ```
@@ -8,6 +8,5 @@ The implemented code can be found here:
 │       ├── scenario.js
 │       ├── ...
 ├── package.json
-├── package-lock.json 
-└── .gitignore
+└── package-lock.json 
 ```
