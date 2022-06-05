@@ -7,6 +7,7 @@ The implemented code can be found here:
 │   ├── myworld
 │       ├── scenario.js
 │       ├── ...
+├── log.log
 ├── package.json
 └── package-lock.json 
 ```
