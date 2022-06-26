@@ -194,7 +194,7 @@ class Shutter extends Observable{
     }
 }
 
-class VacuumCleaner extends Agent{
+class VacuumCleaner extends Observable{
     constructor(house, name, in_room){
         super(house,name);
         this.house = house;
@@ -207,12 +207,14 @@ class VacuumCleaner extends Agent{
     turnOn(){
         if((this.status == 'off' || this.battery == 'charging') && (this.battery == 'fully_charged' || this.battery == 'half_charged')){
             this.status = 'on'
+            console.log("Turn on vacuum cleaner")
         }
     }
 
     turnOff(){
         if(this.status == 'on'){
             this.status = 'off'
+            console.log("Turn off vacuum cleaner")
         }
     }
 
