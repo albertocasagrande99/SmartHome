@@ -9,7 +9,7 @@ security_agent>SenseDoorLockIntention#11 sense: entrance door lock status is cha
 security_agent                 Belief changed: not door_locked entrance
 security_agent                 Belief changed: door_not_locked entrance
 
-Day 0:  07:30
+Day 0:  07:30	
 Living room window status is opened
 in_room Anna hall
 in_room Mario hall
@@ -29,9 +29,9 @@ house_agent                    Belief changed: not person_in_room Mario bedroom
 house_agent                    Belief changed: empty bedroom
 security_agent                 Belief changed: window_opened livingWindow
 security_agent                 Belief changed: not window_closed livingWindow
-vacuum                         Belief changed: not empty hall
+vacuum_agent                   Belief changed: not empty hall
 consumption_agent              Belief changed: not empty hall
-vacuum                         Belief changed: empty bedroom
+vacuum_agent                   Belief changed: empty bedroom
 consumption_agent              Belief changed: empty bedroom
 house_agent>SenseLightsIntention#0 sense: light hallLight switched on
 house_agent>RaiseShuttersIntention#2 No one left in the bedroom. It's time to raise the shutters of the house!
@@ -95,9 +95,9 @@ house_agent                    Belief changed: not person_in_room Anna hall
 house_agent                    Belief changed: person_in_room Mario kitchen
 house_agent                    Belief changed: not person_in_room Mario hall
 house_agent                    Belief changed: empty hall
-vacuum                         Belief changed: not empty kitchen
+vacuum_agent                   Belief changed: not empty kitchen
 consumption_agent              Belief changed: not empty kitchen
-vacuum                         Belief changed: empty hall
+vacuum_agent                   Belief changed: empty hall
 consumption_agent              Belief changed: empty hall
 house_agent>SenseLightsIntention#0 sense: light kitchenLight switched on
 house_agent                    Belief changed: light_on kitchenLight
@@ -124,9 +124,9 @@ house_agent                    Belief changed: not person_in_room Anna kitchen
 house_agent                    Belief changed: person_in_room Mario dining_room
 house_agent                    Belief changed: not person_in_room Mario kitchen
 house_agent                    Belief changed: empty kitchen
-vacuum                         Belief changed: not empty dining_room
+vacuum_agent                   Belief changed: not empty dining_room
 consumption_agent              Belief changed: not empty dining_room
-vacuum                         Belief changed: empty kitchen
+vacuum_agent                   Belief changed: empty kitchen
 consumption_agent              Belief changed: empty kitchen
 house_agent>SenseLightsIntention#0 sense: light diningLight switched on
 house_agent                    Belief changed: light_on diningLight
@@ -140,96 +140,95 @@ house_agent                    Belief changed: not light_on kitchenLight
 house_agent                    Belief changed: light_off kitchenLight
 
 Day 0:  09:00	
-vacuum                         Trying to use intention RetryFourTimesIntention to achieve goal RetryGoal#14[object Object]
-vacuum>RetryFourTimesIntention#13 Intention started
-vacuum                         Trying to use intention OnlinePlanning to achieve goal PddlGoal#13 goal:clean hall,clean bedroom,clean bathroom,clean kids_bedroom,at_room vacuum living_room
-vacuum>OnlinePlanning#14       Intention started
-
-Day 0:  09:30	
-vacuum>OnlinePlanning#14       Plan found:
-vacuum>OnlinePlanning#14       - (move vacuum living_room hall)
-vacuum>OnlinePlanning#14       - (clean vacuum hall)
-vacuum>OnlinePlanning#14       - (move vacuum hall bathroom)
-vacuum>OnlinePlanning#14       - (clean vacuum bathroom)
-vacuum>OnlinePlanning#14       - (move vacuum bathroom hall)
-vacuum>OnlinePlanning#14       - (move vacuum hall bedroom)
-vacuum>OnlinePlanning#14       - (clean vacuum bedroom)
-vacuum>OnlinePlanning#14       - (move vacuum bedroom hall)
-vacuum>OnlinePlanning#14       - (move vacuum hall kids_bedroom)
-vacuum>OnlinePlanning#14       - (clean vacuum kids_bedroom)
-vacuum>OnlinePlanning#14       - (move vacuum kids_bedroom hall)
-vacuum>OnlinePlanning#14       - (move vacuum hall living_room)
-vacuum>OnlinePlanning#14       Starting sequential step (Move vacuum living_room hall) Effect: not at_room vacuum living_room,at_room vacuum hall
-vacuum>Move#15                 Intention started
+vacuum_agent                   Trying to use intention RetryFourTimesIntention to achieve goal RetryGoal#14[object Object]
+vacuum_agent>RetryFourTimesIntention#13 Intention started
+vacuum_agent                   Trying to use intention OnlinePlanning to achieve goal PddlGoal#13 goal:clean hall,clean bedroom,clean bathroom,clean kids_bedroom,at_room vacuum living_room,off vacuum
+vacuum_agent>OnlinePlanning#14 Intention started
 
 Day 0:  09:45	
-vacuum                         Belief changed: not at_room vacuum living_room
-vacuum                         Belief changed: at_room vacuum hall
+vacuum_agent>OnlinePlanning#14 Plan found:
+vacuum_agent>OnlinePlanning#14 - (turnon vacuum)
+vacuum_agent>OnlinePlanning#14 - (move vacuum living_room hall)
+vacuum_agent>OnlinePlanning#14 - (clean vacuum hall)
+vacuum_agent>OnlinePlanning#14 - (move vacuum hall bathroom)
+vacuum_agent>OnlinePlanning#14 - (clean vacuum bathroom)
+vacuum_agent>OnlinePlanning#14 - (move vacuum bathroom hall)
+vacuum_agent>OnlinePlanning#14 - (move vacuum hall bedroom)
+vacuum_agent>OnlinePlanning#14 - (clean vacuum bedroom)
+vacuum_agent>OnlinePlanning#14 - (move vacuum bedroom hall)
+vacuum_agent>OnlinePlanning#14 - (move vacuum hall kids_bedroom)
+vacuum_agent>OnlinePlanning#14 - (clean vacuum kids_bedroom)
+vacuum_agent>OnlinePlanning#14 - (move vacuum kids_bedroom hall)
+vacuum_agent>OnlinePlanning#14 - (move vacuum hall living_room)
+vacuum_agent>OnlinePlanning#14 - (turnoff vacuum)
+vacuum_agent>OnlinePlanning#14 Starting sequential step (TurnOn vacuum) Effect: not off vacuum,on vacuum
+vacuum_agent>TurnOn#15         Intention started
+Turn on vacuum cleaner
+vacuum_agent                   Belief changed: not off vacuum
+vacuum_agent                   Belief changed: on vacuum
+vacuum_agent>TurnOn#15         Intention success
+vacuum_agent>OnlinePlanning#14 Starting sequential step (Move vacuum living_room hall) Effect: not at_room vacuum living_room,at_room vacuum hall
+vacuum_agent>Move#16           Intention started
 Move from living_room to hall
-vacuum>Move#15                 Intention success
-vacuum>OnlinePlanning#14       Starting sequential step (Clean vacuum hall) Effect: clean hall
-vacuum>Clean#16                Intention started
-
-Day 0:  10:00	
-vacuum                         Belief changed: clean hall
+vacuum_agent                   Belief changed: not at_room vacuum living_room
+vacuum_agent                   Belief changed: at_room vacuum hall
+vacuum_agent>Move#16           Intention success
+vacuum_agent>OnlinePlanning#14 Starting sequential step (Clean vacuum hall) Effect: clean hall
+vacuum_agent>Clean#17          Intention started
 Cleaning  hall
-vacuum>Clean#16                Intention success
-vacuum>OnlinePlanning#14       Starting sequential step (Move vacuum hall bathroom) Effect: not at_room vacuum hall,at_room vacuum bathroom
-vacuum>Move#17                 Intention started
 
 Day 0:  10:15	
-vacuum                         Belief changed: not at_room vacuum hall
-vacuum                         Belief changed: at_room vacuum bathroom
+vacuum_agent                   Belief changed: clean hall
+vacuum_agent>Clean#17          Intention success
+vacuum_agent>OnlinePlanning#14 Starting sequential step (Move vacuum hall bathroom) Effect: not at_room vacuum hall,at_room vacuum bathroom
+vacuum_agent>Move#18           Intention started
 Move from hall to bathroom
-vacuum>Move#17                 Intention success
-vacuum>OnlinePlanning#14       Starting sequential step (Clean vacuum bathroom) Effect: clean bathroom
-vacuum>Clean#18                Intention started
-
-Day 0:  10:30	
-vacuum                         Belief changed: clean bathroom
+vacuum_agent                   Belief changed: not at_room vacuum hall
+vacuum_agent                   Belief changed: at_room vacuum bathroom
+vacuum_agent>Move#18           Intention success
+vacuum_agent>OnlinePlanning#14 Starting sequential step (Clean vacuum bathroom) Effect: clean bathroom
+vacuum_agent>Clean#19          Intention started
 Cleaning  bathroom
-vacuum>Clean#18                Intention success
-vacuum>OnlinePlanning#14       Starting sequential step (Move vacuum bathroom hall) Effect: not at_room vacuum bathroom,at_room vacuum hall
-vacuum>Move#19                 Intention started
 
 Day 0:  10:45	
-vacuum                         Belief changed: not at_room vacuum bathroom
-vacuum                         Belief changed: at_room vacuum hall
+vacuum_agent                   Belief changed: clean bathroom
+vacuum_agent>Clean#19          Intention success
+vacuum_agent>OnlinePlanning#14 Starting sequential step (Move vacuum bathroom hall) Effect: not at_room vacuum bathroom,at_room vacuum hall
+vacuum_agent>Move#20           Intention started
 Move from bathroom to hall
-vacuum>Move#19                 Intention success
-vacuum>OnlinePlanning#14       Starting sequential step (Move vacuum hall bedroom) Effect: not at_room vacuum hall,at_room vacuum bedroom
-vacuum>Move#20                 Intention started
+vacuum_agent                   Belief changed: not at_room vacuum bathroom
+vacuum_agent                   Belief changed: at_room vacuum hall
+vacuum_agent>Move#20           Intention success
+vacuum_agent>OnlinePlanning#14 Starting sequential step (Move vacuum hall bedroom) Effect: not at_room vacuum hall,at_room vacuum bedroom
+vacuum_agent>Move#21           Intention started
+Move from hall to bedroom
 
 Day 0:  11:00	
-vacuum                         Belief changed: not at_room vacuum hall
-vacuum                         Belief changed: at_room vacuum bedroom
-Move from hall to bedroom
-vacuum>Move#20                 Intention success
-vacuum>OnlinePlanning#14       Starting sequential step (Clean vacuum bedroom) Effect: clean bedroom
-vacuum>Clean#21                Intention started
-
-Day 0:  11:15	
-vacuum                         Belief changed: clean bedroom
+vacuum_agent                   Belief changed: not at_room vacuum hall
+vacuum_agent                   Belief changed: at_room vacuum bedroom
+vacuum_agent>Move#21           Intention success
+vacuum_agent>OnlinePlanning#14 Starting sequential step (Clean vacuum bedroom) Effect: clean bedroom
+vacuum_agent>Clean#22          Intention started
 Cleaning  bedroom
-vacuum>Clean#21                Intention success
-vacuum>OnlinePlanning#14       Starting sequential step (Move vacuum bedroom hall) Effect: not at_room vacuum bedroom,at_room vacuum hall
-vacuum>Move#22                 Intention started
 
 Day 0:  11:30	
-vacuum                         Belief changed: not at_room vacuum bedroom
-vacuum                         Belief changed: at_room vacuum hall
+vacuum_agent                   Belief changed: clean bedroom
+vacuum_agent>Clean#22          Intention success
+vacuum_agent>OnlinePlanning#14 Starting sequential step (Move vacuum bedroom hall) Effect: not at_room vacuum bedroom,at_room vacuum hall
+vacuum_agent>Move#23           Intention started
 Move from bedroom to hall
-vacuum>Move#22                 Intention success
-vacuum>OnlinePlanning#14       Starting sequential step (Move vacuum hall kids_bedroom) Effect: not at_room vacuum hall,at_room vacuum kids_bedroom
-vacuum>Move#23                 Intention started
-
-Day 0:  11:45	
-vacuum                         Belief changed: not at_room vacuum hall
-vacuum                         Belief changed: at_room vacuum kids_bedroom
+vacuum_agent                   Belief changed: not at_room vacuum bedroom
+vacuum_agent                   Belief changed: at_room vacuum hall
+vacuum_agent>Move#23           Intention success
+vacuum_agent>OnlinePlanning#14 Starting sequential step (Move vacuum hall kids_bedroom) Effect: not at_room vacuum hall,at_room vacuum kids_bedroom
+vacuum_agent>Move#24           Intention started
 Move from hall to kids_bedroom
-vacuum>Move#23                 Intention success
-vacuum>OnlinePlanning#14       Starting sequential step (Clean vacuum kids_bedroom) Effect: clean kids_bedroom
-vacuum>Clean#24                Intention started
+vacuum_agent                   Belief changed: not at_room vacuum hall
+vacuum_agent                   Belief changed: at_room vacuum kids_bedroom
+vacuum_agent>Move#24           Intention success
+vacuum_agent>OnlinePlanning#14 Starting sequential step (Clean vacuum kids_bedroom) Effect: clean kids_bedroom
+vacuum_agent>Clean#25          Intention started
+Cleaning  kids_bedroom
 
 Day 0:  12:00	
 in_room Anna kitchen
@@ -237,7 +236,6 @@ in_room Mario kitchen
 house_agent>SensePersonIntention#1 sense: person Anna moved to kitchen
 house_agent>SensePersonIntention#1 Let's turn on the kitchenLight
 house_agent>SensePersonIntention#1 sense: person Mario moved to kitchen
-vacuum                         Belief changed: clean kids_bedroom
 kitchen light status is on
 Electricity consumption 120
 house_agent                    Belief changed: person_in_room Anna kitchen
@@ -246,9 +244,9 @@ house_agent                    Belief changed: not person_in_room Anna dining_ro
 house_agent                    Belief changed: person_in_room Mario kitchen
 house_agent                    Belief changed: not person_in_room Mario dining_room
 house_agent                    Belief changed: empty dining_room
-vacuum                         Belief changed: not empty kitchen
+vacuum_agent                   Belief changed: not empty kitchen
 consumption_agent              Belief changed: not empty kitchen
-vacuum                         Belief changed: empty dining_room
+vacuum_agent                   Belief changed: empty dining_room
 consumption_agent              Belief changed: empty dining_room
 house_agent>SenseLightsIntention#0 sense: light kitchenLight switched on
 house_agent                    Belief changed: light_on kitchenLight
@@ -260,28 +258,32 @@ Electricity consumption 110
 house_agent>SenseLightsIntention#0 sense: light diningLight switched off
 house_agent                    Belief changed: not light_on diningLight
 house_agent                    Belief changed: light_off diningLight
-Cleaning  kids_bedroom
-vacuum>Clean#24                Intention success
-vacuum>OnlinePlanning#14       Starting sequential step (Move vacuum kids_bedroom hall) Effect: not at_room vacuum kids_bedroom,at_room vacuum hall
-vacuum>Move#25                 Intention started
+vacuum_agent                   Belief changed: clean kids_bedroom
+vacuum_agent>Clean#25          Intention success
+vacuum_agent>OnlinePlanning#14 Starting sequential step (Move vacuum kids_bedroom hall) Effect: not at_room vacuum kids_bedroom,at_room vacuum hall
+vacuum_agent>Move#26           Intention started
+Move from kids_bedroom to hall
+vacuum_agent                   Belief changed: not at_room vacuum kids_bedroom
+vacuum_agent                   Belief changed: at_room vacuum hall
+vacuum_agent>Move#26           Intention success
+vacuum_agent>OnlinePlanning#14 Starting sequential step (Move vacuum hall living_room) Effect: not at_room vacuum hall,at_room vacuum living_room
+vacuum_agent>Move#27           Intention started
+Move from hall to living_room
+vacuum_agent                   Belief changed: not at_room vacuum hall
+vacuum_agent                   Belief changed: at_room vacuum living_room
 
 Day 0:  12:15	
-vacuum                         Belief changed: not at_room vacuum kids_bedroom
-vacuum                         Belief changed: at_room vacuum hall
-Move from kids_bedroom to hall
-vacuum>Move#25                 Intention success
-vacuum>OnlinePlanning#14       Starting sequential step (Move vacuum hall living_room) Effect: not at_room vacuum hall,at_room vacuum living_room
-vacuum>Move#26                 Intention started
-
-Day 0:  12:30	
-vacuum                         Belief changed: not at_room vacuum hall
-vacuum                         Belief changed: at_room vacuum living_room
-Move from hall to living_room
-vacuum>Move#26                 Intention success
-vacuum>OnlinePlanning#14       Intention success
-vacuum                         Succesfully used intention OnlinePlanning to achieve goal PddlGoal#13 goal:clean hall,clean bedroom,clean bathroom,clean kids_bedroom,at_room vacuum living_room
-vacuum>RetryFourTimesIntention#13 Intention success
-vacuum                         Succesfully used intention RetryFourTimesIntention to achieve goal RetryGoal#14[object Object]
+vacuum_agent>Move#27           Intention success
+vacuum_agent>OnlinePlanning#14 Starting sequential step (TurnOff vacuum) Effect: not on vacuum,off vacuum
+vacuum_agent>TurnOff#28        Intention started
+Turn off vacuum cleaner
+vacuum_agent                   Belief changed: not on vacuum
+vacuum_agent                   Belief changed: off vacuum
+vacuum_agent>TurnOff#28        Intention success
+vacuum_agent>OnlinePlanning#14 Intention success
+vacuum_agent                   Succesfully used intention OnlinePlanning to achieve goal PddlGoal#13 goal:clean hall,clean bedroom,clean bathroom,clean kids_bedroom,at_room vacuum living_room,off vacuum
+vacuum_agent>RetryFourTimesIntention#13 Intention success
+vacuum_agent                   Succesfully used intention RetryFourTimesIntention to achieve goal RetryGoal#14[object Object]
 
 Day 0:  15:30	
 in_room Anna living_room
@@ -297,9 +299,9 @@ house_agent                    Belief changed: not person_in_room Anna kitchen
 house_agent                    Belief changed: person_in_room Mario living_room
 house_agent                    Belief changed: not person_in_room Mario kitchen
 house_agent                    Belief changed: empty kitchen
-vacuum                         Belief changed: not empty living_room
+vacuum_agent                   Belief changed: not empty living_room
 consumption_agent              Belief changed: not empty living_room
-vacuum                         Belief changed: empty kitchen
+vacuum_agent                   Belief changed: empty kitchen
 consumption_agent              Belief changed: empty kitchen
 house_agent>SenseLightsIntention#0 sense: light livingLight switched on
 house_agent                    Belief changed: light_on livingLight
@@ -356,7 +358,7 @@ Electricity consumption 315
 house_agent                    Belief changed: person_in_room Mario dining_room
 house_agent                    Belief changed: not empty dining_room
 house_agent                    Belief changed: not person_in_room Mario living_room
-vacuum                         Belief changed: not empty dining_room
+vacuum_agent                   Belief changed: not empty dining_room
 consumption_agent              Belief changed: not empty dining_room
 house_agent>FilmIntention#4    Residents are no longer watching a movie on TV
 house_agent>SenseLightsIntention#0 sense: light diningLight switched on
@@ -400,11 +402,11 @@ house_agent                    Belief changed: empty living_room
 house_agent                    Belief changed: person_in_room Mario kitchen
 house_agent                    Belief changed: not person_in_room Mario dining_room
 house_agent                    Belief changed: empty dining_room
-vacuum                         Belief changed: not empty kitchen
+vacuum_agent                   Belief changed: not empty kitchen
 consumption_agent              Belief changed: not empty kitchen
-vacuum                         Belief changed: empty living_room
+vacuum_agent                   Belief changed: empty living_room
 consumption_agent              Belief changed: empty living_room
-vacuum                         Belief changed: empty dining_room
+vacuum_agent                   Belief changed: empty dining_room
 consumption_agent              Belief changed: empty dining_room
 house_agent>SenseLightsIntention#0 sense: light kitchenLight switched on
 house_agent                    Belief changed: light_on kitchenLight
@@ -432,6 +434,7 @@ Electricity consumption 110
 Day 0:  20:15	
 in_room Anna living_room
 in_room Mario living_room
+vacuum_agent                   Belief changed: not clean dining_room
 house_agent>SensePersonIntention#1 sense: person Anna moved to living_room
 house_agent>SensePersonIntention#1 Let's turn on the livingLight
 house_agent>SensePersonIntention#1 sense: person Mario moved to living_room
@@ -443,9 +446,9 @@ house_agent                    Belief changed: not person_in_room Anna kitchen
 house_agent                    Belief changed: person_in_room Mario living_room
 house_agent                    Belief changed: not person_in_room Mario kitchen
 house_agent                    Belief changed: empty kitchen
-vacuum                         Belief changed: not empty living_room
+vacuum_agent                   Belief changed: not empty living_room
 consumption_agent              Belief changed: not empty living_room
-vacuum                         Belief changed: empty kitchen
+vacuum_agent                   Belief changed: empty kitchen
 consumption_agent              Belief changed: empty kitchen
 house_agent>SenseLightsIntention#0 sense: light livingLight switched on
 house_agent                    Belief changed: light_on livingLight
@@ -459,21 +462,21 @@ house_agent                    Belief changed: not light_on kitchenLight
 house_agent                    Belief changed: light_off kitchenLight
 
 Day 0:  21:30	
-vacuum                         Trying to use intention RetryFourTimesIntention to achieve goal RetryGoal#28[object Object]
-vacuum>RetryFourTimesIntention#27 Intention started
-vacuum                         Trying to use intention OnlinePlanning to achieve goal PddlGoal#27 goal:clean living_room,clean kitchen,clean dining_room,at_room vacuum living_room
-vacuum>OnlinePlanning#28       Intention started
+vacuum_agent                   Trying to use intention RetryFourTimesIntention to achieve goal RetryGoal#30[object Object]
+vacuum_agent>RetryFourTimesIntention#29 Intention started
+vacuum_agent                   Trying to use intention OnlinePlanning to achieve goal PddlGoal#29 goal:clean living_room,clean kitchen,clean dining_room,at_room vacuum living_room,off vacuum
+vacuum_agent>OnlinePlanning#30 Intention started
 
-Day 0:  21:45	
-vacuum>OnlinePlanning#28       No plan found
-vacuum>OnlinePlanning#28       [object Object]
-vacuum>OnlinePlanning#28       Intention failed: Plan not found
-vacuum                         Failed to use intention OnlinePlanning to achieve goal PddlGoal#27 goal:clean living_room,clean kitchen,clean dining_room,at_room vacuum living_room: Plan not found
-vacuum                         Error: Plan not found
-    at OnlinePlanning.doPlan (/Users/albertocasagrande/Desktop/229362_Casagrande_Alberto_ASA2022/src/pddl/OnlinePlanner.js:54:23)
+Day 0:  22:00	
+vacuum_agent>OnlinePlanning#30 No plan found
+vacuum_agent>OnlinePlanning#30 [object Object]
+vacuum_agent>OnlinePlanning#30 Intention failed: Plan not found
+vacuum_agent                   Failed to use intention OnlinePlanning to achieve goal PddlGoal#29 goal:clean living_room,clean kitchen,clean dining_room,at_room vacuum living_room,off vacuum: Plan not found
+vacuum_agent                   Error: Plan not found
+    at OnlinePlanning.doPlan (/Users/albertocasagrande/Desktop/229362_Casagrande_Alberto/src/pddl/OnlinePlanner.js:54:23)
     at processTicksAndRejections (node:internal/process/task_queues:96:5)
-vacuum                         No success in achieving goal PddlGoal#27 goal:clean living_room,clean kitchen,clean dining_room,at_room vacuum living_room
-vacuum>RetryFourTimesIntention#27 wait for something to change on beliefset before retrying for the 2th time goal PddlGoal#27 goal:clean living_room,clean kitchen,clean dining_room,at_room vacuum living_room
+vacuum_agent                   No success in achieving goal PddlGoal#29 goal:clean living_room,clean kitchen,clean dining_room,at_room vacuum living_room,off vacuum
+vacuum_agent>RetryFourTimesIntention#29 wait for something to change on beliefset before retrying for the 2th time goal PddlGoal#29 goal:clean living_room,clean kitchen,clean dining_room,at_room vacuum living_room,off vacuum
 
 Day 0:  23:00	
 in_room Anna hall
@@ -508,9 +511,9 @@ house_agent>SenseShuttersIntention#6 sense: shutter diningShutter lowered down
 house_agent>SenseShuttersIntention#6 sense: shutter kidsBedroomShutter lowered down
 security_agent>SenseDoorLockIntention#11 sense: entrance door lock status is changed to door_locked
 house_agent>SenseWindowsIntention#5 sense: window livingWindow has been closed
-vacuum                         Belief changed: not empty hall
+vacuum_agent                   Belief changed: not empty hall
 consumption_agent              Belief changed: not empty hall
-vacuum                         Belief changed: empty living_room
+vacuum_agent                   Belief changed: empty living_room
 consumption_agent              Belief changed: empty living_room
 house_agent                    Belief changed: not shutter_up kitchenShutter
 house_agent                    Belief changed: shutter_down kitchenShutter
@@ -552,9 +555,9 @@ Electricity consumption 110
 house_agent>SenseLightsIntention#0 sense: light livingLight switched off
 house_agent                    Belief changed: not light_on livingLight
 house_agent                    Belief changed: light_off livingLight
-vacuum>RetryFourTimesIntention#27 living_room is now empty, we can proceed to clean up
-vacuum                         Trying to use intention OnlinePlanning to achieve goal PddlGoal#27 goal:clean living_room,clean kitchen,clean dining_room,at_room vacuum living_room
-vacuum>OnlinePlanning#29       Intention started
+vacuum_agent>RetryFourTimesIntention#29 living_room is now empty, we can proceed to clean up
+vacuum_agent                   Trying to use intention OnlinePlanning to achieve goal PddlGoal#29 goal:clean living_room,clean kitchen,clean dining_room,at_room vacuum living_room,off vacuum
+vacuum_agent>OnlinePlanning#31 Intention started
 
 Day 0:  23:15	
 in_room Anna bedroom
@@ -570,9 +573,9 @@ house_agent                    Belief changed: not person_in_room Anna hall
 house_agent                    Belief changed: person_in_room Mario bedroom
 house_agent                    Belief changed: not person_in_room Mario hall
 house_agent                    Belief changed: empty hall
-vacuum                         Belief changed: not empty bedroom
+vacuum_agent                   Belief changed: not empty bedroom
 consumption_agent              Belief changed: not empty bedroom
-vacuum                         Belief changed: empty hall
+vacuum_agent                   Belief changed: empty hall
 consumption_agent              Belief changed: empty hall
 house_agent>SenseLightsIntention#0 sense: light bedroomLight switched on
 house_agent                    Belief changed: light_on bedroomLight
@@ -584,64 +587,76 @@ Electricity consumption 110
 house_agent>SenseLightsIntention#0 sense: light hallLight switched off
 house_agent                    Belief changed: not light_on hallLight
 house_agent                    Belief changed: light_off hallLight
-vacuum>OnlinePlanning#29       Plan found:
-vacuum>OnlinePlanning#29       - (clean vacuum living_room)
-vacuum>OnlinePlanning#29       - (move vacuum living_room kitchen)
-vacuum>OnlinePlanning#29       - (clean vacuum kitchen)
-vacuum>OnlinePlanning#29       - (move vacuum kitchen dining_room)
-vacuum>OnlinePlanning#29       - (clean vacuum dining_room)
-vacuum>OnlinePlanning#29       - (move vacuum dining_room living_room)
-vacuum>OnlinePlanning#29       Starting sequential step (Clean vacuum living_room) Effect: clean living_room
-vacuum>Clean#30                Intention started
 Bedroom light status is off
 Electricity consumption 100
 house_agent>SenseLightsIntention#0 sense: light bedroomLight switched off
 house_agent                    Belief changed: not light_on bedroomLight
 house_agent                    Belief changed: light_off bedroomLight
 
-Day 0:  23:30	
-vacuum                         Belief changed: clean living_room
-Cleaning  living_room
-vacuum>Clean#30                Intention success
-vacuum>OnlinePlanning#29       Starting sequential step (Move vacuum living_room kitchen) Effect: not at_room vacuum living_room,at_room vacuum kitchen
-vacuum>Move#31                 Intention started
-
 Day 0:  23:45	
-vacuum                         Belief changed: not at_room vacuum living_room
-vacuum                         Belief changed: at_room vacuum kitchen
-Move from living_room to kitchen
-vacuum>Move#31                 Intention success
-vacuum>OnlinePlanning#29       Starting sequential step (Clean vacuum kitchen) Effect: clean kitchen
-vacuum>Clean#32                Intention started
-
-Day 1:  00:00	
-vacuum                         Belief changed: clean kitchen
-Cleaning  kitchen
-vacuum>Clean#32                Intention success
-vacuum>OnlinePlanning#29       Starting sequential step (Move vacuum kitchen dining_room) Effect: not at_room vacuum kitchen,at_room vacuum dining_room
-vacuum>Move#33                 Intention started
+vacuum_agent>OnlinePlanning#31 Plan found:
+vacuum_agent>OnlinePlanning#31 - (turnon vacuum)
+vacuum_agent>OnlinePlanning#31 - (clean vacuum living_room)
+vacuum_agent>OnlinePlanning#31 - (move vacuum living_room kitchen)
+vacuum_agent>OnlinePlanning#31 - (clean vacuum kitchen)
+vacuum_agent>OnlinePlanning#31 - (move vacuum kitchen dining_room)
+vacuum_agent>OnlinePlanning#31 - (clean vacuum dining_room)
+vacuum_agent>OnlinePlanning#31 - (move vacuum dining_room living_room)
+vacuum_agent>OnlinePlanning#31 - (turnoff vacuum)
+vacuum_agent>OnlinePlanning#31 Starting sequential step (TurnOn vacuum) Effect: not off vacuum,on vacuum
+vacuum_agent>TurnOn#32         Intention started
+Turn on vacuum cleaner
+vacuum_agent                   Belief changed: not off vacuum
+vacuum_agent                   Belief changed: on vacuum
+vacuum_agent>TurnOn#32         Intention success
+vacuum_agent>OnlinePlanning#31 Starting sequential step (Clean vacuum living_room) Effect: clean living_room
+vacuum_agent>Clean#33          Intention started
+Cleaning  living_room
 
 Day 1:  00:15	
-vacuum                         Belief changed: not at_room vacuum kitchen
-vacuum                         Belief changed: at_room vacuum dining_room
-Move from kitchen to dining_room
-vacuum>Move#33                 Intention success
-vacuum>OnlinePlanning#29       Starting sequential step (Clean vacuum dining_room) Effect: clean dining_room
-vacuum>Clean#34                Intention started
-
-Day 1:  00:30	
-vacuum                         Belief changed: clean dining_room
-Cleaning  dining_room
-vacuum>Clean#34                Intention success
-vacuum>OnlinePlanning#29       Starting sequential step (Move vacuum dining_room living_room) Effect: not at_room vacuum dining_room,at_room vacuum living_room
-vacuum>Move#35                 Intention started
+vacuum_agent                   Belief changed: clean living_room
+vacuum_agent>Clean#33          Intention success
+vacuum_agent>OnlinePlanning#31 Starting sequential step (Move vacuum living_room kitchen) Effect: not at_room vacuum living_room,at_room vacuum kitchen
+vacuum_agent>Move#34           Intention started
+Move from living_room to kitchen
+vacuum_agent                   Belief changed: not at_room vacuum living_room
+vacuum_agent                   Belief changed: at_room vacuum kitchen
+vacuum_agent>Move#34           Intention success
+vacuum_agent>OnlinePlanning#31 Starting sequential step (Clean vacuum kitchen) Effect: clean kitchen
+vacuum_agent>Clean#35          Intention started
+Cleaning  kitchen
 
 Day 1:  00:45	
-vacuum                         Belief changed: not at_room vacuum dining_room
-vacuum                         Belief changed: at_room vacuum living_room
+vacuum_agent                   Belief changed: clean kitchen
+vacuum_agent>Clean#35          Intention success
+vacuum_agent>OnlinePlanning#31 Starting sequential step (Move vacuum kitchen dining_room) Effect: not at_room vacuum kitchen,at_room vacuum dining_room
+vacuum_agent>Move#36           Intention started
+Move from kitchen to dining_room
+vacuum_agent                   Belief changed: not at_room vacuum kitchen
+vacuum_agent                   Belief changed: at_room vacuum dining_room
+vacuum_agent>Move#36           Intention success
+vacuum_agent>OnlinePlanning#31 Starting sequential step (Clean vacuum dining_room) Effect: clean dining_room
+vacuum_agent>Clean#37          Intention started
+Cleaning  dining_room
+
+Day 1:  01:15	
+vacuum_agent                   Belief changed: clean dining_room
+vacuum_agent>Clean#37          Intention success
+vacuum_agent>OnlinePlanning#31 Starting sequential step (Move vacuum dining_room living_room) Effect: not at_room vacuum dining_room,at_room vacuum living_room
+vacuum_agent>Move#38           Intention started
 Move from dining_room to living_room
-vacuum>Move#35                 Intention success
-vacuum>OnlinePlanning#29       Intention success
-vacuum                         Succesfully used intention OnlinePlanning to achieve goal PddlGoal#27 goal:clean living_room,clean kitchen,clean dining_room,at_room vacuum living_room
-vacuum>RetryFourTimesIntention#27 Intention success
-vacuum                         Succesfully used intention RetryFourTimesIntention to achieve goal RetryGoal#28[object Object]
+vacuum_agent                   Belief changed: not at_room vacuum dining_room
+vacuum_agent                   Belief changed: at_room vacuum living_room
+vacuum_agent>Move#38           Intention success
+vacuum_agent>OnlinePlanning#31 Starting sequential step (TurnOff vacuum) Effect: not on vacuum,off vacuum
+vacuum_agent>TurnOff#39        Intention started
+Turn off vacuum cleaner
+vacuum_agent                   Belief changed: not on vacuum
+vacuum_agent                   Belief changed: off vacuum
+vacuum_agent>TurnOff#39        Intention success
+
+Day 1:  01:30	
+vacuum_agent>OnlinePlanning#31 Intention success
+vacuum_agent                   Succesfully used intention OnlinePlanning to achieve goal PddlGoal#29 goal:clean living_room,clean kitchen,clean dining_room,at_room vacuum living_room,off vacuum
+vacuum_agent>RetryFourTimesIntention#29 Intention success
+vacuum_agent                   Succesfully used intention RetryFourTimesIntention to achieve goal RetryGoal#30[object Object]
