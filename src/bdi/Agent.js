@@ -10,9 +10,10 @@ const colors = ['red', 'blue', 'green', 'yellow', 'magenta', 'cyan', 'redBright'
  */
 class Agent {
 
-    constructor (name) {
+    constructor (name, device) {
         this.name = name
         this.id = nextId++
+        this.device = device
 
         /** @type {Beliefset} beliefs */
         this.beliefs = new Beliefset()
