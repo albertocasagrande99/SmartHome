@@ -10,11 +10,11 @@ const Clock =  require('../utils/Clock')
  */
 
 class myAction extends pddlActionIntention {
-    async checkPreconditionAndApplyEffect () {
+    async checkPreconditionAndApplyEffect (duration) {
         if ( this.checkPrecondition() ) {
-            await Clock.global.notifyChange('mm', 'plan')
+            //await Clock.global.notifyChange('mm', 'plan')
+            await new Promise(res=>setTimeout(res, duration))
             this.applyEffect()
-            //await new Promise(res=>setTimeout(res,500))
         }
         else
             throw new Error('pddl precondition not valid'); //Promise is rejected!
@@ -23,19 +23,45 @@ class myAction extends pddlActionIntention {
 
 class Move extends myAction {
     static parameters = ['vacuum', 'source', 'destination'];
-    static precondition = [ ['room', 'source'], ['room', 'destination'], ['robot', 'vacuum'], ['at_room', 'vacuum', 'source'], ['adjacent', 'source', 'destination'] ];
+    static precondition = [ ['room', 'source'], ['room', 'destination'], ['robot', 'vacuum'], ['at_room', 'vacuum', 'source'], ['adjacent', 'source', 'destination'], ['on', 'vacuum'] ];
     static effect = [ ['not at_room', 'vacuum', 'source'], ['at_room', 'vacuum', 'destination'] ];
     *exec ({vacuum, source, destination}=parameters) {
-        yield this.checkPreconditionAndApplyEffect(), this.agent.move(destination)
+        let duration = 25
+        this.agent.device.move(destination)
+        yield this.checkPreconditionAndApplyEffect(duration)
     }
 }
 
 class Clean extends myAction {
     static parameters = ['vacuum', 'room'];
-    static precondition = [ ['robot', 'vacuum'], ['room', 'room'], ['at_room', 'vacuum', 'room'], ['empty', 'room']];
+    static precondition = [ ['robot', 'vacuum'], ['room', 'room'], ['at_room', 'vacuum', 'room'], ['empty', 'room'], ['on', 'vacuum']];
     static effect = [ ['clean', 'room'] ];
     *exec ({vacuum, room}=parameters) {
-        yield this.checkPreconditionAndApplyEffect(), this.agent.clean(room)
+        let duration = 300
+        this.agent.device.clean(room)
+        yield this.checkPreconditionAndApplyEffect(duration)
+    }
+}
+
+class TurnOn extends myAction {
+    static parameters = ['vacuum'];
+    static precondition = [ ['robot', 'vacuum'], ['off', 'vacuum']];
+    static effect = [ ['not off', 'vacuum'], ['on', 'vacuum'] ];
+    *exec ({vacuum}=parameters) {
+        let duration = 5
+        this.agent.device.turnOn()
+        yield this.checkPreconditionAndApplyEffect(duration)
+    }
+}
+
+class TurnOff extends myAction {
+    static parameters = ['vacuum'];
+    static precondition = [ ['robot', 'vacuum'], ['on', 'vacuum']];
+    static effect = [ ['not on', 'vacuum'], ['off', 'vacuum'] ];
+    *exec ({vacuum}=parameters) {
+        let duration = 5
+        this.agent.device.turnOff()
+        yield this.checkPreconditionAndApplyEffect(duration)
     }
 }
 
@@ -56,4 +82,4 @@ class RetryFourTimesIntention extends Intention {
     }
 }
 
-module.exports = {Move, Clean, RetryGoal, RetryFourTimesIntention}
+module.exports = {Move, Clean, TurnOn, TurnOff, RetryGoal, RetryFourTimesIntention}
