@@ -11,7 +11,7 @@ const {SenseFilmGoal, SenseFilmIntention} = require('./FilmSensor')
 const {FilmGoal, FilmIntention} = require('./FilmScenario')
 const {SenseWindowsGoal, SenseWindowsIntention} = require('./WindowSensor')
 const {SenseShuttersGoal, SenseShuttersIntention} = require('./ShutterSensor')
-const {Move, Clean, RetryGoal, RetryFourTimesIntention} = require('./VacuumScenario')
+const {Move, Clean, TurnOn, TurnOff, RetryGoal, RetryFourTimesIntention} = require('./VacuumScenario')
 const PlanningGoal = require('../pddl/PlanningGoal')
 const {DoorLockGoal, DoorLockIntention} = require('./ManageDoorLock')
 const {SenseDoorLockGoal, SenseDoorLockIntention} = require('./DoorLockSensor')
@@ -25,7 +25,7 @@ var house = new House()
 function getdirtyRooms(rooms){
     for(let room of rooms){
         if(Math.floor(Math.random() * 2) == 1 && room.name != 'garage'){
-            house.rooms.living_room.devices[5].beliefs.undeclare('clean ' + room.name)
+            vacuumAgent.beliefs.undeclare('clean ' + room.name)
         }
     }
 }
@@ -49,7 +49,7 @@ Clock.global.observe('mm', (key, mm) => {
     }
     if(time.hh==9 && time.mm==0){
         // every morning we want the vacuum cleaner to clean the sleeping area of the house (of course if rooms are not clean)
-        house.rooms.living_room.devices[5].postSubGoal( new RetryGoal( { goal: new PlanningGoal( { goal: ['clean hall', 'clean bedroom', 'clean bathroom', 'clean kids_bedroom', 'at_room vacuum living_room'] } ) } ) )
+        vacuumAgent.postSubGoal( new RetryGoal( { goal: new PlanningGoal( { goal: ['clean hall', 'clean bedroom', 'clean bathroom', 'clean kids_bedroom', 'at_room vacuum living_room', 'off vacuum'] } ) } ) )
     }
     if(time.hh==12 && time.mm==0){
         house.people.anna.moveTo('kitchen')
@@ -79,7 +79,7 @@ Clock.global.observe('mm', (key, mm) => {
         getdirtyRooms([house.rooms.kitchen, house.rooms.living_room, house.rooms.dining_room])
     }
     if(time.hh==21 && time.mm==30){
-        house.rooms.living_room.devices[5].postSubGoal( new RetryGoal( { goal: new PlanningGoal( { goal: ['clean living_room', 'clean kitchen', 'clean dining_room', 'at_room vacuum living_room'] } ) } ) )
+        vacuumAgent.postSubGoal( new RetryGoal( { goal: new PlanningGoal( { goal: ['clean living_room', 'clean kitchen', 'clean dining_room', 'at_room vacuum living_room', 'off vacuum'] } ) } ) )
     }
     if(time.hh==23 && time.mm==0){
         house.people.anna.moveTo('hall')
@@ -98,42 +98,43 @@ function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
 
+var vacuumAgent = new Agent('vacuum_agent', house.rooms.living_room.devices[5])
 var houseAgent = new Agent('house_agent')               
 var consumptionAgent = new Agent('consumption_agent')
 var securityAgent = new Agent('security_agent')
 
-let {OnlinePlanning} = require('../pddl/OnlinePlanner')([Move, Clean])
-house.rooms.living_room.devices[5].intentions.push(OnlinePlanning)      //devices[5] represents the vacuum cleaner
-house.rooms.living_room.devices[5].intentions.push(RetryFourTimesIntention)
+let {OnlinePlanning} = require('../pddl/OnlinePlanner')([Move, Clean, TurnOn, TurnOff])
+vacuumAgent.intentions.push(OnlinePlanning)
+vacuumAgent.intentions.push(RetryFourTimesIntention)
 
 function init_vacuum_belief(){
-    // it is possible to access the beliefs of a device because the vacuum cleaner extends Agent
-    house.rooms.living_room.devices[5].beliefs.declare('robot vacuum')
-    house.rooms.living_room.devices[5].beliefs.declare('room kitchen')
-    house.rooms.living_room.devices[5].beliefs.declare('room living_room')
-    house.rooms.living_room.devices[5].beliefs.declare('room dining_room')
-    house.rooms.living_room.devices[5].beliefs.declare('room hall')
-    house.rooms.living_room.devices[5].beliefs.declare('room bathroom')
-    house.rooms.living_room.devices[5].beliefs.declare('room bedroom')
-    house.rooms.living_room.devices[5].beliefs.declare('room garage')
-    house.rooms.living_room.devices[5].beliefs.declare('room kids_bedroom')
-    house.rooms.living_room.devices[5].beliefs.declare('at_room vacuum living_room')    //the base station of the vacuum is in the living room
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent living_room kitchen')
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent kitchen living_room')
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent kitchen dining_room')
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent dining_room kitchen')
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent living_room hall')
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent hall living_room')
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent living_room dining_room')
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent dining_room living_room')
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent hall bathroom')
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent bathroom hall')
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent hall bedroom')
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent bedroom hall')
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent hall kids_bedroom')
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent kids_bedroom hall')
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent dining_room garage')
-    house.rooms.living_room.devices[5].beliefs.declare('adjacent garage dining_room')
+    vacuumAgent.beliefs.declare('robot vacuum')
+    vacuumAgent.beliefs.declare('off vacuum')
+    vacuumAgent.beliefs.declare('room kitchen')
+    vacuumAgent.beliefs.declare('room living_room')
+    vacuumAgent.beliefs.declare('room dining_room')
+    vacuumAgent.beliefs.declare('room hall')
+    vacuumAgent.beliefs.declare('room bathroom')
+    vacuumAgent.beliefs.declare('room bedroom')
+    vacuumAgent.beliefs.declare('room garage')
+    vacuumAgent.beliefs.declare('room kids_bedroom')
+    vacuumAgent.beliefs.declare('at_room vacuum living_room')    //the base station of the vacuum is in the living room
+    vacuumAgent.beliefs.declare('adjacent living_room kitchen')
+    vacuumAgent.beliefs.declare('adjacent kitchen living_room')
+    vacuumAgent.beliefs.declare('adjacent kitchen dining_room')
+    vacuumAgent.beliefs.declare('adjacent dining_room kitchen')
+    vacuumAgent.beliefs.declare('adjacent living_room hall')
+    vacuumAgent.beliefs.declare('adjacent hall living_room')
+    vacuumAgent.beliefs.declare('adjacent living_room dining_room')
+    vacuumAgent.beliefs.declare('adjacent dining_room living_room')
+    vacuumAgent.beliefs.declare('adjacent hall bathroom')
+    vacuumAgent.beliefs.declare('adjacent bathroom hall')
+    vacuumAgent.beliefs.declare('adjacent hall bedroom')
+    vacuumAgent.beliefs.declare('adjacent bedroom hall')
+    vacuumAgent.beliefs.declare('adjacent hall kids_bedroom')
+    vacuumAgent.beliefs.declare('adjacent kids_bedroom hall')
+    vacuumAgent.beliefs.declare('adjacent dining_room garage')
+    vacuumAgent.beliefs.declare('adjacent garage dining_room')
 }
 
 init_vacuum_belief()   //initialization of the beliefs of the vacuum cleaner (we assume the vacuum already knows the structure of the house)
@@ -162,7 +163,7 @@ var sensor_shutters_windows = (agent) => (value, key, observable) => {
     value ? agent.beliefs.declare(key) : agent.beliefs.undeclare(key)
 }
 
-houseAgent.beliefs.observeAny( sensor_empty(house.rooms.living_room.devices[5]) )
+houseAgent.beliefs.observeAny( sensor_empty(vacuumAgent) )
 houseAgent.beliefs.observeAny( sensor_empty(consumptionAgent) )
 houseAgent.beliefs.observeAny( sensor_shutters_windows(securityAgent) )
 
